@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aisthra.invalid/schema/embedded-result-v1.json",
+  "title": "Aisthra A.13 embedded validation result",
+  "type": "object",
+  "required": [
+    "schema",
+    "generated_at",
+    "target",
+    "architecture",
+    "execution_environment",
+    "status",
+    "markers",
+    "memory",
+    "metric",
+    "benchmarks",
+    "profiles"
+  ],
+  "properties": {
+    "schema": { "const": "aisthra-embedded-result-v1" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "target": { "type": "string", "minLength": 1 },
+    "architecture": { "type": ["string", "null"] },
+    "execution_environment": { "type": ["string", "null"] },
+    "framework": { "type": ["string", "null"] },
+    "framework_version": { "type": ["string", "null"] },
+    "compiler": { "type": ["string", "null"] },
+    "compiler_version": { "type": ["string", "null"] },
+    "qemu_version": { "type": ["string", "null"] },
+    "configuration_id": { "type": ["string", "null"] },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "NOT_AVAILABLE",
+        "NOT_RUN",
+        "PARTIAL",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "run_exit_code": { "type": ["integer", "null"] },
+    "markers": { "type": "object" },
+    "abi": { "type": ["object", "null"] },
+    "memory": { "type": "object" },
+    "metric": { "type": "object" },
+    "benchmarks": { "type": "object" },
+    "profiles": {
+      "type": "object",
+      "required": ["smoke", "small", "medium", "stress", "endurance"],
+      "properties": {
+        "smoke": { "$ref": "#/$defs/profile" },
+        "small": { "$ref": "#/$defs/profile" },
+        "medium": { "$ref": "#/$defs/profile" },
+        "stress": { "$ref": "#/$defs/profile" },
+        "endurance": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "profile": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "BLOCKED",
+            "NOT_AVAILABLE",
+            "NOT_RUN",
+            "PARTIAL",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "operations": { "type": ["integer", "null"] },
+        "latency_us": { "type": ["number", "null"] },
+        "throughput_ops_s": { "type": ["number", "null"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

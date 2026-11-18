@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+include("${CMAKE_CURRENT_LIST_DIR}/aisthraTargets.cmake")
+
+if(TARGET aisthra::aisthra AND NOT TARGET aisthra::static)
+    add_library(aisthra::static ALIAS aisthra::aisthra)
+endif()
+if(TARGET aisthra::aisthra_shared AND NOT TARGET aisthra::shared)
+    add_library(aisthra::shared ALIAS aisthra::aisthra_shared)
+endif()

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aisthra.invalid/schema/arduino-result-v1.json",
+  "title": "Aisthra Arduino-ESP32 build result",
+  "type": "object",
+  "required": [
+    "schema",
+    "generated_at",
+    "target",
+    "architecture",
+    "framework",
+    "fqbn",
+    "execution_environment",
+    "build_status",
+    "qemu_status",
+    "status",
+    "source_copy_verification"
+  ],
+  "properties": {
+    "schema": { "const": "aisthra-arduino-result-v1" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "target": { "type": "string", "minLength": 1 },
+    "architecture": { "type": "string", "minLength": 1 },
+    "framework": { "const": "Arduino-ESP32" },
+    "framework_version": { "type": ["string", "null"] },
+    "fqbn": { "type": ["string", "null"] },
+    "arduino_cli_version": { "type": ["string", "null"] },
+    "execution_environment": { "const": "Arduino CLI compile" },
+    "build_status": {
+      "enum": ["PASS", "FAIL", "NOT_AVAILABLE", "NOT_RUN"]
+    },
+    "qemu_status": { "const": "NOT_TESTED" },
+    "status": {
+      "enum": ["PASS", "FAIL", "NOT_AVAILABLE", "NOT_RUN"]
+    },
+    "run_exit_code": { "type": ["integer", "null"] },
+    "source_copy_verification": {
+      "enum": ["PASS", "FAIL", "NOT_RUN"]
+    },
+    "firmware_bytes": { "type": ["integer", "null"] },
+    "static_ram_bytes": { "type": ["integer", "null"] },
+    "artifact": { "type": ["string", "null"] },
+    "logs": { "type": "object" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

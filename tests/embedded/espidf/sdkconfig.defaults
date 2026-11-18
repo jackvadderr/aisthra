@@ -1,0 +1,14 @@
+# ESP32 classic validation profile for an authorized future DevKit run.
+# This task only builds the firmware; it does not flash hardware.
+CONFIG_IDF_TARGET="esp32"
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+# Leave the crystal selection to ESP-IDF defaults; the physical warning must
+# be investigated during boot validation instead of being masked here.
+CONFIG_FREERTOS_UNICORE=n
+CONFIG_FREERTOS_HZ=1000
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
+CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=16384
+CONFIG_LOG_DEFAULT_LEVEL=3
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT=y
